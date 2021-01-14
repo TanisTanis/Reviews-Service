@@ -5,6 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "test",
+    "start": "nodemon server",
     "build": "webpack -w"
   },
   "repository": {
@@ -19,6 +20,7 @@
   "homepage": "https://github.com/pirate-ninjas/Reviews-Service#readme",
   "dependencies": {
     "axios": "^0.21.1",
+    "express": "^4.17.1",
     "faker": "^5.1.0",
     "mongoose": "^5.11.11",
     "nodemon": "^2.0.7",
