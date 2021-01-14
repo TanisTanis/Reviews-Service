@@ -1,0 +1,31 @@
+{
+  "name": "reviews-service",
+  "version": "1.0.0",
+  "description": "Review Component of REI Clone",
+  "main": "index.js",
+  "scripts": {
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/pirate-ninjas/Reviews-Service.git"
+  },
+  "author": "Tanis Kiel",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/pirate-ninjas/Reviews-Service/issues"
+  },
+  "homepage": "https://github.com/pirate-ninjas/Reviews-Service#readme",
+  "dependencies": {
+    "faker": "^5.1.0",
+    "mongoose": "^5.11.11"
+  },
+  "devDependencies": {
+    "eslint": "^7.17.0",
+    "eslint-config-airbnb": "^18.2.1",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-react": "^7.22.0",
+    "eslint-plugin-react-hooks": "^4.2.0"
+  }
+}
