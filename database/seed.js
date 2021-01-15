@@ -26,7 +26,7 @@ const fakeData = [];
 for (let i = 0; i < 100; i++) {
   const fakeReview = new db.Review({
     user: faker.name.findName(),
-    location: `${faker.address.city()} + ', ' + ${faker.address.state()}`,
+    location: `${faker.address.city()}, ${faker.address.state()}`,
     review_date: faker.date.recent(),
     title: faker.random.words(),
     body: faker.lorem.paragraph(),
