@@ -4,6 +4,7 @@
 /* eslint-disable no-unused-vars */
 
 const faker = require('faker');
+const mongoose = require('mongoose');
 
 const db = require('./reviews.js');
 
@@ -40,14 +41,15 @@ for (let i = 0; i < 100; i++) {
   fakeData.push(fakeReview);
 }
 
-function addData(data) {
-  data.forEach((review) => {
-    review.save((err) => {
-      if (err) {
-        console.log(err);
-      }
+function addData() {
+  db.Review.create(fakeData)
+    .then((res) => {
+      console.log('Database seeded successfully!');
+      mongoose.connection.close();
+    })
+    .catch((err) => {
+      console.log(err);
     });
-  });
 }
 
-addData(fakeData);
+addData();
