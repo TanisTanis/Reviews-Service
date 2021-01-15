@@ -23,9 +23,11 @@ function numGenerator() {
 }
 
 const fakeData = [];
+let id = 0;
 
 for (let i = 0; i < 100; i++) {
   const fakeReview = new db.Review({
+    review_id: id,
     user: faker.name.findName(),
     location: `${faker.address.city()}, ${faker.address.state()}`,
     review_date: faker.date.recent(),
@@ -38,6 +40,7 @@ for (let i = 0; i < 100; i++) {
       durability: numGenerator(),
     },
   });
+  id++;
   fakeData.push(fakeReview);
 }
 

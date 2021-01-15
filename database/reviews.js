@@ -6,6 +6,7 @@ mongoose.connect('mongodb://localhost/reviews', {
 });
 
 const reviewSchema = new mongoose.Schema({
+  review_id: Number,
   user: String,
   location: String,
   review_date: String,
