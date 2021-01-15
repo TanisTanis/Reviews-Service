@@ -16,7 +16,7 @@ app.get('/api/:id/reviews', (req, res) => {
       res.send(data);
     })
     .catch((err) => {
-      console.log(err);
+      res.send(err);
     });
 });
 
