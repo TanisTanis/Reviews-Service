@@ -11,8 +11,14 @@ app.use(express.static('public'));
 app.use(express.json());
 
 app.get('/api/:id/reviews', (req, res) => {
-  const reviewId = req.params.id;
-  db.Review.find({ review_id: reviewId })
+  const reviewId = parseInt(req.params.id, 10);
+  const numOfItems = 5;
+  db.Review.find({
+    review_id: {
+      $gte: reviewId,
+      $lte: reviewId + numOfItems,
+    },
+  })
     .then((data) => {
       res.send(data);
     })
