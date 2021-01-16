@@ -10,8 +10,8 @@ const db = require('../database');
 app.use(express.static('public'));
 app.use(express.json());
 
-app.get('/api/:id/reviews', (req, res) => {
-  const reviewId = parseInt(req.params.id, 10);
+app.get('/api/products/:itemid/reviews', (req, res) => {
+  const reviewId = parseInt(req.params.itemid, 10);
   const numOfItems = 5;
   db.Review.find({
     review_id: {
@@ -27,7 +27,7 @@ app.get('/api/:id/reviews', (req, res) => {
     });
 });
 
-app.post('/api/reviews', (req, res) => {
+app.post('/api/products/reviews', (req, res) => {
   const {
     user, location, reviewDate, title, body,
   } = req.body;
