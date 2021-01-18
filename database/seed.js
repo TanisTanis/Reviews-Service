@@ -28,12 +28,14 @@ let id = 0;
 for (let i = 0; i < 100; i++) {
   const fakeReview = new db.Review({
     review_id: id,
-    user: faker.name.findName(),
+    user: faker.name.firstName(),
     location: `${faker.address.city()}, ${faker.address.state()}`,
+    review_count: numGenerator(),
     review_date: faker.date.recent(),
     title: faker.random.words(),
     body: faker.lorem.paragraph(),
     recommended: trueFalseGenerator(),
+    verified_user: trueFalseGenerator(),
     ratings: {
       overall: numGenerator(),
       quality: numGenerator(),

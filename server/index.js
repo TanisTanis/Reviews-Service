@@ -1,3 +1,4 @@
+/* eslint-disable operator-assignment */
 /* eslint-disable object-shorthand */
 /* eslint-disable no-console */
 /* eslint-disable no-unused-vars */
@@ -21,6 +22,35 @@ app.get('/api/products/:itemid/reviews', (req, res) => {
   })
     .then((data) => {
       res.send(data);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+});
+
+app.get('/api/products/:itemid/reviews/ratings', (req, res) => {
+  const reviewId = parseInt(req.params.itemid, 10);
+  const numOfItems = 5;
+  db.Review.find({
+    review_id: {
+      $gte: reviewId,
+      $lte: reviewId + numOfItems,
+    },
+  })
+    .then((data) => {
+      const ratings = {
+        overall: 0,
+        quality: 0,
+        durability: 0,
+      };
+      data.forEach((review) => {
+        const keys = Object.keys(review.ratings);
+        keys.forEach((category) => {
+          ratings[category] = ratings[category] + review.ratings[category];
+        });
+      });
+      db.findAverage(ratings, numOfItems + 1);
+      res.send(ratings);
     })
     .catch((err) => {
       res.send(err);

@@ -1,0 +1,37 @@
+.name-location, .review-stars-total {
+  box-sizing: border-box;
+  width: 33.33%;
+  display: inline-block;
+}
+
+.review {
+  margin-left: 80px;
+  margin-right: 80px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  margin-bottom:0%;
+  margin-top: 0%;
+  border-top: 0.7px solid grey;
+  border-bottom: 0.7px solid grey;
+}
+
+.main-review {
+  box-sizing: border-box;
+  width: 66.66%;
+  display: inline-block;
+}
+
+.review-number {
+  font-weight: bold;
+}
+
+.title, .name {
+  font-weight: bold;
+}
+
+.averaged-reviews {
+  box-sizing: border-box;
+  width: 50%;
+  display: inline-block;
+  float: right;
+}
