@@ -18,7 +18,7 @@ function getReviews(id, num, callback) {
   });
 }
 
-function getRatings(id, num, callback) {
+function getAverageRatings(id, num, callback) {
   db.Review.find({
     review_id: {
       $gte: id,
@@ -124,7 +124,7 @@ function addReview(reqbody, callback) {
 
 module.exports = {
   getReviews,
-  getRatings,
+  getAverageRatings,
   incrementYes,
   incrementNo,
   addReview,

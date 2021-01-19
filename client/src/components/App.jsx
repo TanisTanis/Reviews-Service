@@ -7,6 +7,7 @@ import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
 import ReviewList from './ReviewList';
+import RatingsCount from './RatingsCount';
 
 class App extends React.Component {
   constructor(props) {
@@ -15,24 +16,34 @@ class App extends React.Component {
     this.state = {
       reviews: [],
       ratings: [],
+      ratingsCount: {
+        5: 0,
+        4: 0,
+        3: 0,
+        2: 0,
+        1: 0,
+        0: 0,
+      },
     };
 
     this.handleSelectChange = this.handleSelectChange.bind(this);
+    this.calculateRatings = this.calculateRatings.bind(this);
   }
 
   componentDidMount() {
-    axios.get('/api/products/60/reviews')
+    axios.get('/api/products/80/reviews')
       .then((data) => {
         const sorted = data.data.sort(this.sortByNewest);
         this.setState({
           reviews: sorted,
         });
+        this.calculateRatings();
       })
       .catch((err) => {
         console.log(err);
       });
 
-    axios.get('/api/products/60/reviews/ratings')
+    axios.get('/api/products/80/reviews/ratings')
       .then((ratings) => {
         this.setState({
           ratings: ratings.data,
@@ -45,21 +56,29 @@ class App extends React.Component {
 
   handleSelectChange(event) {
     const sortMethod = event.target.value;
+    let sorted = this.state.reviews;
     if (sortMethod === 'most-recent') {
-      let sorted = this.state.reviews;
       sorted = sorted.sort(this.sortByNewest);
       this.setState({
         reviews: sorted,
       });
     } else if (sortMethod === 'oldest') {
-      let sorted = this.state.reviews;
       sorted = sorted.sort(this.sortByOldest);
       this.setState({
         reviews: sorted,
       });
     } else if (sortMethod === 'most-helpful') {
-      let sorted = this.state.reviews;
       sorted = sorted.sort(this.sortByHelpful);
+      this.setState({
+        reviews: sorted,
+      });
+    } else if (sortMethod === 'highest-lowest') {
+      sorted = sorted.sort(this.sortByHighestToLowest);
+      this.setState({
+        reviews: sorted,
+      });
+    } else if (sortMethod === 'lowest-highest') {
+      sorted = sorted.sort(this.sortByLowestToHighest);
       this.setState({
         reviews: sorted,
       });
@@ -90,6 +109,24 @@ class App extends React.Component {
       });
   }
 
+  calculateRatings() {
+    const ratings = {
+      5: 0,
+      4: 0,
+      3: 0,
+      2: 0,
+      1: 0,
+      0: 0,
+    };
+    this.state.reviews.forEach((review) => {
+      ratings[review.ratings.overall] += 1;
+    });
+    this.setState({
+      ratingsCount: ratings,
+    });
+    return ratings;
+  }
+
   sortByNewest(a, b) {
     const date1 = new Date(a.review_date).getTime();
     const date2 = new Date(b.review_date).getTime();
@@ -106,6 +143,14 @@ class App extends React.Component {
     return b.helpful.yes - a.helpful.yes;
   }
 
+  sortByHighestToLowest(a, b) {
+    return b.ratings.overall - a.ratings.overall;
+  }
+
+  sortByLowestToHighest(a, b) {
+    return a.ratings.overall - b.ratings.overall;
+  }
+
   render() {
     return (
       <div className="main-div">
@@ -114,7 +159,12 @@ class App extends React.Component {
           <button type="button" className="write-review">Write a review</button>
         </div>
         <div className="review-info">
-          <section className="review-stars-total">Rating Snapshot ☆</section>
+          <section className="review-stars-total">
+            <RatingsCount
+              ratings={this.state.ratingsCount}
+              calculateRatings={this.calculateRatings}
+            />
+          </section>
           <section className="averaged-reviews">
             Average Customer Ratings
             <div className="ratings overall">
@@ -135,72 +185,19 @@ class App extends React.Component {
           </section>
           <section className="sorting-section" onChange={this.handleSelectChange}>
             <span>Sort By:</span>
-            <select name="sort" id="sort">
+            <select name="sort" id="sort" className="review-sorter">
               <option value="most-recent">Most Recent</option>
               <option value="oldest">Oldest</option>
               <option value="most-helpful">Most Helpful</option>
+              <option value="highest-lowest">Highest To Lowest</option>
+              <option value="lowest-highest">Lowest To Highest</option>
             </select>
           </section>
         </div>
         <ReviewList reviews={this.state.reviews} lastIndex={this.state.reviews.length - 1} />
-        <svg width="100" height="200">
-          <polygon points="100,10 40,198 190,78 10,78 160,198" />
-        </svg>
       </div>
     );
   }
 }
-
-// function App() {
-//   const [state, setState] = useState(false);
-//   const [reviews, setReviews] = useState(() => {
-//     axios.get('/api/products/1/reviews')
-//       .then((data) => {
-//         setReviews(data.data);
-//       })
-//       .catch((err) => {
-//         console.log(err);
-//       });
-//   });
-
-//   useEffect(() => {
-//     axios.get('/api/products/1/reviews')
-//       .then((data) => {
-//         setReviews(data.data);
-//       })
-//       .catch((err) => {
-//         console.log(err);
-//       });
-//   });
-
-//   function handleClick() {
-//     if (state === false) {
-//       setState(true);
-//     } else {
-//       setState(false);
-//     }
-//   }
-
-//   function getReviews() {
-//     useEffect(() => {
-//       axios.get('/api/products/1/reviews')
-//         .then((data) => {
-//           setReviews(data.data);
-//         })
-//         .catch((err) => {
-//           console.log(err);
-//         });
-//     });
-//   }
-
-//   return (
-//     <div className="main-div">
-//       <h1>Hello World With React!</h1>
-//       { state ? <h2>You suck!</h2> : null}
-//       <button type="button" onClick={handleClick}>Change</button>
-//       {/* <ReviewList reviews={reviews} reviewHandler={setReviews} getReviews={getReviews} /> */}
-//     </div>
-//   );
-// }
 
 export default App;

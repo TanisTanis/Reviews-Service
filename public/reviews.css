@@ -8,7 +8,6 @@
   ========================================
 */
 
-
 .header-name {
   font-size: 20px;
   margin-left: 80px;
@@ -71,8 +70,13 @@
 }
 
 .review-stars-total {
-  margin: auto;
+  font-size: 15px;
+}
+
+.rating-snapshot {
+  margin-right: 80px;
   text-align: center;
+  font-size: 13px;
 }
 
 .sorting-section {
@@ -88,8 +92,12 @@
   ========================================
 */
 
-.title, .name, .review-number {
+.title, .name, .review-number, .rating-number {
   font-weight: bold;
+}
+
+.rating-number {
+  font-size: 15px;
 }
 
 .verified-user {
@@ -132,16 +140,37 @@
 
 /*
   ========================================
-  Button
+  Buttons
   ========================================
 */
 
 .write-review {
   margin-right: 80px;
   float: right;
+  background-color: #225c4e;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 4px;
+  border: none;
+}
+
+.write-review:hover {
+  color: #225c4e;
+  background-color: #c7dfd1;
+  cursor: pointer;
 }
 
 .yes-no {
   background: 0%;
+  border: none;
+}
+
+/*
+  ========================================
+  Selector
+  ========================================
+*/
+
+.review-sorter {
   border: none;
 }
