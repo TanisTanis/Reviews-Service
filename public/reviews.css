@@ -1,23 +1,33 @@
 .name-location, .review-stars-total {
-  box-sizing: border-box;
   width: 33.33%;
   display: inline-block;
 }
 
-.review {
+.review, .first-review, .last-review {
   margin-left: 80px;
   margin-right: 80px;
   padding-top: 20px;
   padding-bottom: 20px;
-  margin-bottom:0%;
-  margin-top: 0%;
+}
+
+.review {
   border-top: 0.7px solid grey;
   border-bottom: 0.7px solid grey;
 }
 
+.first-review {
+  border-top: 2px solid grey;
+  border-bottom: 0.7px solid grey;
+}
+
+.last-review {
+  border-bottom: 0px;
+  border-top: 0.7px solid grey;
+}
+
 .main-review {
   box-sizing: border-box;
-  width: 66.66%;
+  width: 40%;
   display: inline-block;
 }
 
@@ -31,7 +41,31 @@
 
 .averaged-reviews {
   box-sizing: border-box;
-  width: 50%;
+  width: 20%;
   display: inline-block;
-  float: right;
+  margin-left: 100px;
+}
+
+.name-location {
+  top: -100px;
+}
+
+.review-stars-total {
+  margin: auto;
+  text-align: center;
+}
+
+.write-sort {
+  box-sizing: border-box;
+  width: 10%;
+  display: inline-block;
+}
+
+.verified-user {
+  float:right;
+}
+
+.star {
+  font-weight: bolder;
+  font-size: 40px;
 }

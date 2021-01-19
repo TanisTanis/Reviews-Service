@@ -27,9 +27,11 @@ const findAverage = (obj, numOfItems) => {
   //   obj[key] = obj[key] / numOfItems;
   // };
   const keys = Object.keys(obj);
-  for (let i = 0; i < keys.length; i++) {
+  for (let i = 0; i < keys.length; i += 1) {
     if (keys[i] !== '$init') {
-      obj[keys[i]] = obj[keys[i]] / numOfItems;
+      let newNum = obj[keys[i]] / numOfItems;
+      newNum = newNum.toFixed(1);
+      obj[keys[i]] = newNum;
     }
   }
   return obj;

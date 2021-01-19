@@ -21,7 +21,7 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    axios.get('/api/products/1/reviews')
+    axios.get('/api/products/60/reviews')
       .then((data) => {
         this.setState({
           reviews: data.data,
@@ -31,12 +31,11 @@ class App extends React.Component {
         console.log(err);
       });
 
-    axios.get('/api/products/1/reviews/ratings')
+    axios.get('/api/products/60/reviews/ratings')
       .then((ratings) => {
         this.setState({
           ratings: ratings.data,
         });
-        console.log(this.state);
       })
       .catch((err) => {
         console.log(err);
@@ -67,7 +66,6 @@ class App extends React.Component {
         this.setState({
           ratings: ratings.data,
         });
-        console.log(this.state);
       })
       .catch((err) => {
         console.log(err);
@@ -81,10 +79,30 @@ class App extends React.Component {
         { this.state.h2 ? <h2>You suck!</h2> : null }
         <button type="button" onClick={this.handleClick}>Change</button>
         <div className="review-info">
-          <section className="review-stars-total"></section>
-          <section className="averaged-reviews">Average Customer Ratings</section>
+          <section className="review-stars-total">Review Numbers</section>
+          <section className="averaged-reviews">
+            Average Customer Ratings
+            <div className="ratings overall">
+              Overall:
+              {' '}
+              {this.state.ratings.overall}
+            </div>
+            <div className="ratings quality">
+              Quality:
+              {' '}
+              {this.state.ratings.quality}
+            </div>
+            <div className="ratings durability">
+              Durability:
+              {' '}
+              {this.state.ratings.durability}
+            </div>
+          </section>
+          <section className="write-sort">
+            <button type="button" className="write-review">Write a review</button>
+          </section>
         </div>
-        <ReviewList reviews={this.state.reviews} />
+        <ReviewList reviews={this.state.reviews} lastIndex={this.state.reviews.length - 1} />
       </div>
     );
   }
