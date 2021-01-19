@@ -143,6 +143,9 @@ class App extends React.Component {
           </section>
         </div>
         <ReviewList reviews={this.state.reviews} lastIndex={this.state.reviews.length - 1} />
+        <svg width="100" height="200">
+          <polygon points="100,10 40,198 190,78 10,78 160,198" />
+        </svg>
       </div>
     );
   }
