@@ -1,0 +1,147 @@
+* {
+  font-family: 'Bodoni Moda', serif;
+}
+
+/*
+  ========================================
+  Header CSS
+  ========================================
+*/
+
+
+.header-name {
+  font-size: 20px;
+  margin-left: 80px;
+}
+
+.header-div {
+  margin-bottom: 40px;
+}
+
+/*
+  ========================================
+  Single Review CSS
+  ========================================
+*/
+
+.review, .first-review, .last-review {
+  margin-left: 80px;
+  margin-right: 80px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.review {
+  border-top: 0.7px solid grey;
+  border-bottom: 0.7px solid grey;
+}
+
+.first-review {
+  border-top: 2px solid grey;
+  border-bottom: 0.7px solid grey;
+}
+
+.last-review {
+  border-bottom: 0px;
+  border-top: 0.7px solid grey;
+}
+
+/*
+  ========================================
+  Sections
+  ========================================
+*/
+
+.name-location, .review-stars-total {
+  width: 33.33%;
+  display: inline-block;
+}
+
+.main-review {
+  box-sizing: border-box;
+  width: 40%;
+  display: inline-block;
+}
+
+.averaged-reviews {
+  box-sizing: border-box;
+  width: 20%;
+  display: inline-block;
+  margin-left: 100px;
+}
+
+.review-stars-total {
+  margin: auto;
+  text-align: center;
+}
+
+.sorting-section {
+  box-sizing: border-box;
+  width: 10%;
+  float: right;
+  margin-right: 80px;
+}
+
+/*
+  ========================================
+  Individual Components
+  ========================================
+*/
+
+.title, .name, .review-number {
+  font-weight: bold;
+}
+
+.verified-user {
+  float:right;
+}
+
+.star {
+  font-weight: bolder;
+  font-size: 40px;
+  /* background-color: goldenrod;
+  color: white; */
+  border-radius: 50%;
+}
+
+.gold-stars, .grey-stars {
+  font-weight: bold;
+  font-size: 30px;
+}
+
+.gold-stars {
+  color: goldenrod;
+  fill: goldenrod;
+}
+
+.grey-stars {
+  color: grey;
+}
+
+.seperator {
+  font-size: 30px;
+}
+
+.yes {
+  color: green;
+}
+
+.no {
+  color: red;
+}
+
+/*
+  ========================================
+  Button
+  ========================================
+*/
+
+.write-review {
+  margin-right: 80px;
+  float: right;
+}
+
+.yes-no {
+  background: 0%;
+  border: none;
+}
