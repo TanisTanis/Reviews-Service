@@ -57,6 +57,12 @@ class App extends React.Component {
       this.setState({
         reviews: sorted,
       });
+    } else if (sortMethod === 'most-helpful') {
+      let sorted = this.state.reviews;
+      sorted = sorted.sort(this.sortByHelpful);
+      this.setState({
+        reviews: sorted,
+      });
     }
   }
 
@@ -96,6 +102,10 @@ class App extends React.Component {
     return date1 < date2 ? -1 : 1;
   }
 
+  sortByHelpful(a, b) {
+    return b.helpful.yes - a.helpful.yes;
+  }
+
   render() {
     return (
       <div className="main-div">
@@ -128,6 +138,7 @@ class App extends React.Component {
             <select name="sort" id="sort">
               <option value="most-recent">Most Recent</option>
               <option value="oldest">Oldest</option>
+              <option value="most-helpful">Most Helpful</option>
             </select>
           </section>
         </div>

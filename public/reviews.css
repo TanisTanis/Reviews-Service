@@ -117,6 +117,18 @@
   color: grey;
 }
 
+.seperator {
+  font-size: 30px;
+}
+
+.yes {
+  color: green;
+}
+
+.no {
+  color: red;
+}
+
 /*
   ========================================
   Button
@@ -126,4 +138,9 @@
 .write-review {
   margin-right: 80px;
   float: right;
+}
+
+.yes-no {
+  background: 0%;
+  border: none;
 }

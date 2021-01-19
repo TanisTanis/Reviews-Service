@@ -96,6 +96,38 @@ app.post('/api/products/reviews', (req, res) => {
     });
 });
 
+app.patch('/api/products/:itemid/reviews/yes', (req, res) => {
+  const reviewId = parseInt(req.params.itemid, 10);
+  const query = { review_id: reviewId };
+  db.Review.find(query)
+    .then((data) => {
+      const yesCount = data[0].helpful.yes;
+      db.Review.findOneAndUpdate(query, { 'helpful.yes': yesCount + 1 }, { rawResult: true })
+        .then((response) => {
+          res.send(response);
+        });
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+});
+
+app.patch('/api/products/:itemid/reviews/no', (req, res) => {
+  const reviewId = parseInt(req.params.itemid, 10);
+  const query = { review_id: reviewId };
+  db.Review.find(query)
+    .then((data) => {
+      const noCount = data[0].helpful.no;
+      db.Review.findOneAndUpdate(query, { 'helpful.no': noCount + 1 })
+        .then(() => {
+          res.send('Successful patch');
+        });
+    })
+    .catch((err) => {
+      res.send(err);
+    });
+});
+
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`);
 });
