@@ -1,3 +1,7 @@
+* {
+  font-family: 'Bodoni Moda', serif;
+}
+
 /*
   ========================================
   Header CSS
@@ -95,6 +99,22 @@
 .star {
   font-weight: bolder;
   font-size: 40px;
+  /* background-color: goldenrod;
+  color: white; */
+  border-radius: 50%;
+}
+
+.gold-stars, .grey-stars {
+  font-weight: bold;
+  font-size: 30px;
+}
+
+.gold-stars {
+  color: goldenrod;
+}
+
+.grey-stars {
+  color: grey;
 }
 
 /*

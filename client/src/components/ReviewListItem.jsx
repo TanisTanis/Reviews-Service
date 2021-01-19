@@ -1,14 +1,12 @@
+/* eslint-disable react/no-unescaped-entities */
 /* eslint-disable react/destructuring-assignment */
 import React from 'react';
 import moment from 'moment';
 
 const ReviewListItem = (props) => {
   function starFormatter(num) {
-    if (num === 0) {
-      return '0 stars';
-    }
     let stars = '';
-    for (let i = 1; i <= num; i += 1) {
+    for (let i = 0; i < num; i += 1) {
       stars += '*';
     }
     return stars;
@@ -61,7 +59,9 @@ const ReviewListItem = (props) => {
         </div>
       </section>
       <section className="main-review">
-        <span className="stars">{starFormatter(props.review.ratings.overall)}</span>
+        <span className="gold-stars">{starFormatter(props.review.ratings.overall)}</span>
+        <span className="grey-stars">{starFormatter(5 - props.review.ratings.overall)}</span>
+        {/* <span className="stars">{starFormatter(props.review.ratings.overall)}</span> */}
         {' - '}
         <span className="date">{moment(props.review.review_date).fromNow()}</span>
         <div className="review-body">
@@ -77,7 +77,7 @@ const ReviewListItem = (props) => {
       {props.review.verified_user ? (
         <span className="verified-user">
           <span className="star">*</span>
-          Verified User
+          Verified Purchaser
         </span>
       ) : null}
     </div>
