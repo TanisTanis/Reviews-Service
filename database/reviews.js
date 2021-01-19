@@ -28,9 +28,6 @@ const reviewSchema = new mongoose.Schema({
 });
 
 const findAverage = (obj, numOfItems) => {
-  // for (key in obj) {
-  //   obj[key] = obj[key] / numOfItems;
-  // };
   const keys = Object.keys(obj);
   for (let i = 0; i < keys.length; i += 1) {
     if (keys[i] !== '$init') {
