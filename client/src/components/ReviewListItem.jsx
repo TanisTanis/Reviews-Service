@@ -53,7 +53,11 @@ const ReviewListItem = (props) => {
         <div className="name">{props.review.user}</div>
         <div className="location">{props.review.location}</div>
         <div className="review-count">
-          Review <span className="review-number">{props.review.review_count}</span>
+          Review
+          {' '}
+          <span className="review-number">
+            {props.review.review_count}
+          </span>
         </div>
       </section>
       <section className="main-review">

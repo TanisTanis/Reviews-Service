@@ -12,12 +12,9 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      h2: false,
       reviews: [],
       ratings: [],
     };
-
-    this.handleClick = this.handleClick.bind(this);
   }
 
   componentDidMount() {
@@ -40,12 +37,6 @@ class App extends React.Component {
       .catch((err) => {
         console.log(err);
       });
-  }
-
-  handleClick() {
-    this.setState({
-      h2: !this.state.h2,
-    });
   }
 
   getReviews(productId) {
@@ -75,9 +66,10 @@ class App extends React.Component {
   render() {
     return (
       <div className="main-div">
-        <h1>Hello World With React!</h1>
-        { this.state.h2 ? <h2>You suck!</h2> : null }
-        <button type="button" onClick={this.handleClick}>Change</button>
+        <div className="header-div">
+          <span className="header-name">Reviews</span>
+          <button type="button" className="write-review">Write a review</button>
+        </div>
         <div className="review-info">
           <section className="review-stars-total">Review Numbers</section>
           <section className="averaged-reviews">
@@ -98,8 +90,12 @@ class App extends React.Component {
               {this.state.ratings.durability}
             </div>
           </section>
-          <section className="write-sort">
-            <button type="button" className="write-review">Write a review</button>
+          <section className="sorting-section">
+            <span>Sort By:</span>
+            <select name="sort" id="sort">
+              <option value="most-recent">Most Recent</option>
+              <option value="oldest">Oldest</option>
+            </select>
           </section>
         </div>
         <ReviewList reviews={this.state.reviews} lastIndex={this.state.reviews.length - 1} />
