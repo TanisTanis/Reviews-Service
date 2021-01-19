@@ -22,6 +22,11 @@ function numGenerator() {
   return randomNum;
 }
 
+function bigNumGenerator() {
+  const randomNum = Math.round(Math.random() * 25);
+  return randomNum;
+}
+
 const fakeData = [];
 let id = 0;
 
@@ -40,6 +45,10 @@ for (let i = 0; i < 100; i++) {
       overall: numGenerator(),
       quality: numGenerator(),
       durability: numGenerator(),
+    },
+    helpful: {
+      yes: bigNumGenerator(),
+      no: bigNumGenerator(),
     },
   });
   id++;

@@ -7,7 +7,7 @@ const ReviewListItem = (props) => {
   function starFormatter(num) {
     let stars = '';
     for (let i = 0; i < num; i += 1) {
-      stars += '*';
+      stars += '☆';
     }
     return stars;
   }
@@ -17,6 +17,7 @@ const ReviewListItem = (props) => {
       return (
         <span className="recommended">
           ✔
+          {' '}
           <span className="yes-no-rec">
             Yes
           </span>
@@ -27,6 +28,7 @@ const ReviewListItem = (props) => {
     return (
       <span className="recommended">
         ✘
+        {' '}
         <span className="yes-no-rec">
           No
         </span>

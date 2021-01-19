@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 const mongoose = require('mongoose');
 
 mongoose.connect('mongodb://localhost/reviews', {
@@ -19,6 +20,10 @@ const reviewSchema = new mongoose.Schema({
     overall: Number,
     quality: Number,
     durability: Number,
+  },
+  helpful: {
+    yes: Number,
+    no: Number,
   },
 });
 

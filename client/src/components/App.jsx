@@ -1,3 +1,4 @@
+/* eslint-disable class-methods-use-this */
 /* eslint-disable react/no-access-state-in-setstate */
 /* eslint-disable no-unused-vars */
 /* eslint-disable no-console */
@@ -15,13 +16,16 @@ class App extends React.Component {
       reviews: [],
       ratings: [],
     };
+
+    this.handleSelectChange = this.handleSelectChange.bind(this);
   }
 
   componentDidMount() {
     axios.get('/api/products/60/reviews')
       .then((data) => {
+        const sorted = data.data.sort(this.sortByNewest);
         this.setState({
-          reviews: data.data,
+          reviews: sorted,
         });
       })
       .catch((err) => {
@@ -37,6 +41,23 @@ class App extends React.Component {
       .catch((err) => {
         console.log(err);
       });
+  }
+
+  handleSelectChange(event) {
+    const sortMethod = event.target.value;
+    if (sortMethod === 'most-recent') {
+      let sorted = this.state.reviews;
+      sorted = sorted.sort(this.sortByNewest);
+      this.setState({
+        reviews: sorted,
+      });
+    } else if (sortMethod === 'oldest') {
+      let sorted = this.state.reviews;
+      sorted = sorted.sort(this.sortByOldest);
+      this.setState({
+        reviews: sorted,
+      });
+    }
   }
 
   getReviews(productId) {
@@ -63,6 +84,18 @@ class App extends React.Component {
       });
   }
 
+  sortByNewest(a, b) {
+    const date1 = new Date(a.review_date).getTime();
+    const date2 = new Date(b.review_date).getTime();
+    return date1 > date2 ? -1 : 1;
+  }
+
+  sortByOldest(a, b) {
+    const date1 = new Date(a.review_date).getTime();
+    const date2 = new Date(b.review_date).getTime();
+    return date1 < date2 ? -1 : 1;
+  }
+
   render() {
     return (
       <div className="main-div">
@@ -71,7 +104,7 @@ class App extends React.Component {
           <button type="button" className="write-review">Write a review</button>
         </div>
         <div className="review-info">
-          <section className="review-stars-total">Review Numbers</section>
+          <section className="review-stars-total">Rating Snapshot ☆</section>
           <section className="averaged-reviews">
             Average Customer Ratings
             <div className="ratings overall">
@@ -90,7 +123,7 @@ class App extends React.Component {
               {this.state.ratings.durability}
             </div>
           </section>
-          <section className="sorting-section">
+          <section className="sorting-section" onChange={this.handleSelectChange}>
             <span>Sort By:</span>
             <select name="sort" id="sort">
               <option value="most-recent">Most Recent</option>
