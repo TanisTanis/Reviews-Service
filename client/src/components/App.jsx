@@ -8,6 +8,7 @@ import axios from 'axios';
 
 import ReviewList from './ReviewList';
 import RatingsCount from './RatingsCount';
+import WriteReview from './WriteReview';
 
 class App extends React.Component {
   constructor(props) {
@@ -28,6 +29,7 @@ class App extends React.Component {
 
     this.handleSelectChange = this.handleSelectChange.bind(this);
     this.calculateRatings = this.calculateRatings.bind(this);
+    this.handleModalOpen = this.handleModalOpen.bind(this);
   }
 
   componentDidMount() {
@@ -83,6 +85,11 @@ class App extends React.Component {
         reviews: sorted,
       });
     }
+  }
+
+  handleModalOpen() {
+    const modal = document.getElementById('write-review-modal');
+    modal.style.display = 'block';
   }
 
   getReviews(productId) {
@@ -156,11 +163,15 @@ class App extends React.Component {
       <div className="main-div">
         <div className="header-div">
           <span className="header-name">Reviews</span>
-          <button type="button" className="write-review">Write a review</button>
+          <button type="button" className="write-review" onClick={this.handleModalOpen}>Write a review</button>
+        </div>
+        <div id="write-review-modal">
+          <WriteReview />
         </div>
         <div className="review-info">
           <section className="review-stars-total">
             <RatingsCount
+              reviews={this.state.reviews}
               ratings={this.state.ratingsCount}
               calculateRatings={this.calculateRatings}
             />

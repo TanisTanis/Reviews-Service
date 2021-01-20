@@ -9,7 +9,15 @@ import axios from 'axios';
 const ReviewListItem = (props) => {
   const [helpfulYes, setYes] = useState(props.review.helpful.yes);
   const [helpfulNo, setNo] = useState(props.review.helpful.no);
-  function starFormatter(num) {
+  function starFormatterFull(num) {
+    let stars = '';
+    for (let i = 0; i < num; i += 1) {
+      stars += '★';
+    }
+    return stars;
+  }
+
+  function starFormatterEmpty(num) {
     let stars = '';
     for (let i = 0; i < num; i += 1) {
       stars += '☆';
@@ -92,8 +100,8 @@ const ReviewListItem = (props) => {
         </div>
       </section>
       <section className="main-review">
-        <span className="gold-stars">{starFormatter(props.review.ratings.overall)}</span>
-        <span className="grey-stars">{starFormatter(5 - props.review.ratings.overall)}</span>
+        <span className="gold-stars">{starFormatterFull(props.review.ratings.overall)}</span>
+        <span className="grey-stars">{starFormatterEmpty(5 - props.review.ratings.overall)}</span>
         <span className="seperator">{' · '}</span>
         <span className="date">{moment(props.review.review_date).fromNow()}</span>
         <div className="review-body">
@@ -121,7 +129,7 @@ const ReviewListItem = (props) => {
       </section>
       {props.review.verified_user ? (
         <span className="verified-user">
-          <span className="star">*</span>
+          <span className="verified-star">{'✪  '}</span>
           Verified Purchaser
         </span>
       ) : null}

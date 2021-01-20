@@ -8,7 +8,7 @@ const RatingsCount = (props) => {
 
   useEffect(() => {
     setRatings(props.calculateRatings());
-  });
+  }, [props.reviews]);
 
   return (
     <div className="rating-snapshot">
