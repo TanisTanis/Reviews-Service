@@ -77,9 +77,14 @@ const WriteReview = (props) => {
         document.getElementById(`${i}`).style.color = 'black';
       }
     }
+    function buttonReset() {
+      document.getElementById('yes-button').removeAttribute('disabled');
+      document.getElementById('no-button').removeAttribute('disabled');
+    }
     resetState();
     resetChecks();
     starReset();
+    buttonReset();
     document.getElementById('review-form').reset();
   }
 

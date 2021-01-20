@@ -76,6 +76,7 @@ function addReview(reqbody, callback) {
   } = reqbody;
   let verified;
   let recommended;
+  let newId;
 
   if (reqbody.recommended.toString().toLowerCase() === 'true') {
     recommended = true;
@@ -110,11 +111,11 @@ function addReview(reqbody, callback) {
 
   db.Review.findOne({}).sort('-review_id')
     .then((data) => {
-      const newId = data.review_id + 1;
+      newId = data.review_id + 1;
       newPost.review_id = newId;
       db.Review.create(newPost)
         .then((response) => {
-          callback(null, response);
+          callback(null, newId);
         });
     })
     .catch((err) => {

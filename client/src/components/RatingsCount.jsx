@@ -50,13 +50,6 @@ const RatingsCount = (props) => {
         {': '}
         {ratings[1]}
       </div>
-      <div>
-        <span className="rating-number">0</span>
-        {' '}
-        <span className="rating-snapshot-star">★</span>
-        {': '}
-        {ratings[0]}
-      </div>
     </div>
   );
 };

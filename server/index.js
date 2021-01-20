@@ -38,11 +38,12 @@ app.get('/api/products/:itemid/reviews/ratings', (req, res) => {
 
 app.post('/api/products/reviews', (req, res) => {
   const info = req.body;
-  model.addReview(info, (err, response) => {
+  model.addReview(info, (err, newId) => {
     if (err) {
       res.send(err);
     } else {
-      res.send(response);
+      res.write(`${newId}`);
+      res.send();
     }
   });
 });

@@ -1,3 +1,4 @@
+/* eslint-disable no-param-reassign */
 /* eslint-disable class-methods-use-this */
 /* eslint-disable react/no-access-state-in-setstate */
 /* eslint-disable no-unused-vars */
@@ -9,6 +10,7 @@ import axios from 'axios';
 import ReviewList from './ReviewList';
 import RatingsCount from './RatingsCount';
 import WriteReview from './WriteReview';
+import AveragedReviews from './AveragedReviews';
 
 class App extends React.Component {
   constructor(props) {
@@ -23,7 +25,6 @@ class App extends React.Component {
         3: 0,
         2: 0,
         1: 0,
-        0: 0,
       },
     };
 
@@ -124,7 +125,6 @@ class App extends React.Component {
       3: 0,
       2: 0,
       1: 0,
-      0: 0,
     };
     this.state.reviews.forEach((review) => {
       ratings[review.ratings.overall] += 1;
@@ -137,13 +137,14 @@ class App extends React.Component {
 
   submitReview(review) {
     const currentReviews = this.state.reviews;
-    currentReviews.unshift(review);
-    this.setState({
-      reviews: currentReviews,
-    });
     axios.post('/api/products/reviews', review)
       .then((response) => {
-        console.log('Success!');
+        console.log(response);
+        review.review_id = response.data;
+        currentReviews.unshift(review);
+        this.setState({
+          reviews: currentReviews,
+        });
       });
   }
 
@@ -189,24 +190,7 @@ class App extends React.Component {
               calculateRatings={this.calculateRatings}
             />
           </section>
-          <section className="averaged-reviews">
-            Average Customer Ratings
-            <div className="ratings overall">
-              Overall:
-              {' '}
-              {this.state.ratings.overall}
-            </div>
-            <div className="ratings quality">
-              Quality:
-              {' '}
-              {this.state.ratings.quality}
-            </div>
-            <div className="ratings durability">
-              Durability:
-              {' '}
-              {this.state.ratings.durability}
-            </div>
-          </section>
+          <AveragedReviews ratings={this.state.ratings} />
           <section className="sorting-section" onChange={this.handleSelectChange}>
             <span>Sort By:</span>
             <select name="sort" id="sort" className="review-sorter">
