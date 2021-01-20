@@ -30,6 +30,7 @@ class App extends React.Component {
     this.handleSelectChange = this.handleSelectChange.bind(this);
     this.calculateRatings = this.calculateRatings.bind(this);
     this.handleModalOpen = this.handleModalOpen.bind(this);
+    this.submitReview = this.submitReview.bind(this);
   }
 
   componentDidMount() {
@@ -134,6 +135,18 @@ class App extends React.Component {
     return ratings;
   }
 
+  submitReview(review) {
+    const currentReviews = this.state.reviews;
+    currentReviews.unshift(review);
+    this.setState({
+      reviews: currentReviews,
+    });
+    axios.post('/api/products/reviews', review)
+      .then((response) => {
+        console.log('Success!');
+      });
+  }
+
   sortByNewest(a, b) {
     const date1 = new Date(a.review_date).getTime();
     const date2 = new Date(b.review_date).getTime();
@@ -166,7 +179,7 @@ class App extends React.Component {
           <button type="button" className="write-review" onClick={this.handleModalOpen}>Write a review</button>
         </div>
         <div id="write-review-modal">
-          <WriteReview />
+          <WriteReview submitReview={this.submitReview} />
         </div>
         <div className="review-info">
           <section className="review-stars-total">

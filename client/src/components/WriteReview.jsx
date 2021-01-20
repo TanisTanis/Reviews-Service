@@ -1,3 +1,5 @@
+/* eslint-disable react/prop-types */
+/* eslint-disable object-shorthand */
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable consistent-return */
@@ -10,6 +12,11 @@ const WriteReview = (props) => {
   const [rating, setRating] = useState('');
   const [ratingClick, setRatingClick] = useState(false);
   const [title, setTitle] = useState('');
+  const [body, setBody] = useState('');
+  const [recommended, setRecommended] = useState(null);
+  const [name, setName] = useState('');
+  const [location, setLocation] = useState('');
+  const [agreed, setAgreed] = useState(false);
 
   function textHandler(num) {
     if (num === 1) {
@@ -25,8 +32,12 @@ const WriteReview = (props) => {
     }
   }
 
-  function addCheck(elementClass) {
-    document.getElementById(elementClass).style.display = 'inline-block';
+  function addCheck(elementId) {
+    document.getElementById(elementId).style.display = 'inline-block';
+  }
+
+  function removeCheck(elementId) {
+    document.getElementById(elementId).style.display = 'none';
   }
 
   function starHandler(num) {
@@ -41,6 +52,43 @@ const WriteReview = (props) => {
     }
   }
 
+  function fullFormReset() {
+    function resetState() {
+      setRating('');
+      setRatingClick(false);
+      setTitle('');
+      setBody('');
+      setRecommended(null);
+      setName('');
+      setLocation('');
+      setAgreed(false);
+    }
+    function resetChecks() {
+      document.getElementById('user-review-check').style.display = 'none';
+      document.getElementById('user-recommended').style.display = 'none';
+      document.getElementById('user-title-check').style.display = 'none';
+      document.getElementById('user-text-check').style.display = 'none';
+      document.getElementById('user-name-check').style.display = 'none';
+      document.getElementById('user-location-check').style.display = 'none';
+    }
+    function starReset() {
+      document.getElementById('star-describer').textContent = '';
+      for (let i = 1; i <= 5; i += 1) {
+        document.getElementById(`${i}`).style.color = 'black';
+      }
+    }
+    resetState();
+    resetChecks();
+    starReset();
+    document.getElementById('review-form').reset();
+  }
+
+  function closeModal() {
+    const modal = document.getElementById('write-review-modal');
+    modal.style.display = 'none';
+    fullFormReset();
+  }
+
   function starClick(event) {
     const userRating = parseInt(event.target.id, 10);
     if ((event.type === 'click' && ratingClick) || !ratingClick) {
@@ -53,10 +101,54 @@ const WriteReview = (props) => {
     }
   }
 
+  function handleRecButton(event) {
+    const eventName = event.target.id;
+    addCheck('user-recommended');
+
+    if (eventName === 'yes-button') {
+      document.getElementById('yes-button').setAttribute('disabled', 'true');
+      document.getElementById('no-button').removeAttribute('disabled');
+      setRecommended(true);
+    }
+    if (eventName === 'no-button') {
+      document.getElementById('yes-button').removeAttribute('disabled');
+      document.getElementById('no-button').setAttribute('disabled', 'true');
+      setRecommended(false);
+    }
+  }
+
+  function handleSubmit() {
+    const data = {
+      user: name,
+      location: location,
+      review_count: Math.round(Math.random() * 5),
+      review_date: new Date(),
+      title: title,
+      body: body,
+      rating: rating,
+      recommended: recommended,
+      verified_user: false,
+      ratings: {
+        overall: rating,
+        quality: Math.round(Math.random() * 5),
+        durability: Math.round(Math.random() * 5),
+      },
+      helpful: {
+        yes: 0,
+        no: 0,
+      },
+    };
+    props.submitReview(data);
+    const modal = document.getElementById('write-review-modal');
+    modal.style.display = 'none';
+    fullFormReset();
+  }
+
   return (
     <div className="modal-content">
       <div className="modal-header">
         <span>My Review</span>
+        <button className="close-modal-button" type="button" onClick={closeModal}>☒</button>
       </div>
       <div className="modal-body">
         <div className="write-rating">
@@ -67,19 +159,109 @@ const WriteReview = (props) => {
           <span className="3-star write-review-star" id="3" onClick={starClick} role="button" tabIndex={0} onKeyPress={starClick} onMouseOver={starClick} onFocus={() => undefined}>★</span>
           <span className="4-star write-review-star" id="4" onClick={starClick} role="button" tabIndex={0} onKeyPress={starClick} onMouseOver={starClick} onFocus={() => undefined}>★</span>
           <span className="5-star write-review-star" id="5" onClick={starClick} role="button" tabIndex={0} onKeyPress={starClick} onMouseOver={starClick} onFocus={() => undefined}>★</span>
-          <span className="rating-type" id="star-describer">{}</span>
+          <span className="rating-type" id="star-describer">{ }</span>
           <span className="checked user-review" id="user-review-check">✔</span>
         </div>
-        <div className="write-title">
-          <label htmlFor="title">Review Title</label>
-          <input type="text" name="title" placeholder="Ex: Great for hiking!" />
-        </div>
-        <div className="write-review-body">
-          <span className="review-body">Review</span>
-          <div>
-            <textarea rows="8" cols="75" name="review-body" placeholder="Please keep your review focused on the product and your experience with it." />
+        <form id="review-form">
+          <div className="write-title">
+            <label htmlFor="title">Review Title</label>
+            <span className="checked user-title" id="user-title-check">✔</span>
+            <input
+              type="text"
+              id="title-input"
+              name="title"
+              placeholder="Ex: Great for hiking!"
+              required
+              onChange={(e) => {
+                if (title === '') {
+                  addCheck('user-title-check');
+                }
+                setTitle(e.target.value);
+                if (e.target.value === '') {
+                  removeCheck('user-title-check');
+                }
+              }}
+            />
           </div>
-        </div>
+          <div className="write-review-body">
+            <span className="review-body">Review</span>
+            <span className="checked user-text" id="user-text-check">✔</span>
+            <div>
+              <textarea
+                rows="8"
+                cols="75"
+                name="review-body"
+                id="body-input"
+                required
+                placeholder="Please keep your review focused on the product and your experience with it."
+                onChange={(e) => {
+                  if (body === '') {
+                    addCheck('user-text-check');
+                  }
+                  setBody(e.target.value);
+                  if (e.target.value === '') {
+                    removeCheck('user-text-check');
+                  }
+                }}
+              />
+            </div>
+          </div>
+          <div className="write-recommended">
+            <span>Would you reccomend this to a friend?</span>
+            <button type="button" id="yes-button" onClick={handleRecButton}>Yes</button>
+            <button type="button" id="no-button" onClick={handleRecButton}>No</button>
+            <span className="checked user-recommended" id="user-recommended">✔</span>
+          </div>
+          <div className="user-info">
+            <span className="name-span">Name</span>
+            <input
+              type="text"
+              placeholder="Ex: Tanis Kiel"
+              id="name-input"
+              required
+              onChange={(e) => {
+                if (name === '') {
+                  addCheck('user-name-check');
+                }
+                setName(e.target.value);
+                if (e.target.value === '') {
+                  removeCheck('user-name-check');
+                }
+              }}
+            />
+            <span className="checked user-name" id="user-name-check">✔</span>
+            <span className="location-span">Location</span>
+            <input
+              type="text"
+              placeholder="Ex: Minas Tirith, Gondor"
+              id="location-input"
+              required
+              onChange={(e) => {
+                if (location === '') {
+                  addCheck('user-location-check');
+                }
+                setLocation(e.target.value);
+                if (e.target.value === '') {
+                  removeCheck('user-location-check');
+                }
+              }}
+            />
+            <span className="checked user-location" id="user-location-check">✔</span>
+          </div>
+          <div className="terms">
+            <input
+              type="checkbox"
+              id="terms-conditions"
+              name="terms-conditions"
+              required
+              onClick={() => setAgreed(!agreed)}
+            />
+            <label htmlFor="terms-conditions">I agree to the terms and conditions.</label>
+          </div>
+          <div className="submit-div">
+            <button className="submit-button" type="button" onClick={handleSubmit}>Submit</button>
+          </div>
+        </form>
       </div>
     </div>
   );

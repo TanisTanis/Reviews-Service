@@ -115,6 +115,10 @@
   font-size: 30px;
 }
 
+.rating-snapshot-star {
+  color: goldenrod;
+}
+
 .gold-stars {
   color: goldenrod;
   fill: goldenrod;
@@ -210,9 +214,13 @@
   cursor: pointer;
 }
 
-.user-review {
+.user-review, .user-recommended, .user-title, .user-text {
   display: none;
   float: right;
+}
+
+.user-name, .user-location {
+  display: none;
 }
 
 textarea {
@@ -221,4 +229,13 @@ textarea {
 
 .checked {
   color:green
+}
+
+.close-modal-button {
+  float: right;
+  font-size: 40px;
+  padding: 0px;
+  border: none;
+  background-color: #fefefe;
+  margin: 0px;
 }

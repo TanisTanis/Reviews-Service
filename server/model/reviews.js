@@ -77,13 +77,13 @@ function addReview(reqbody, callback) {
   let verified;
   let recommended;
 
-  if (reqbody.recommended.toLowerCase() === 'true') {
+  if (reqbody.recommended.toString().toLowerCase() === 'true') {
     recommended = true;
   } else {
     recommended = false;
   }
 
-  if (reqbody.verified_user.toLowerCase() === 'true') {
+  if (reqbody.verified_user.toString().toLowerCase() === 'true') {
     verified = true;
   } else {
     verified = false;
@@ -103,8 +103,8 @@ function addReview(reqbody, callback) {
       durability: reqbody.ratings.durability,
     },
     helpful: {
-      yes: 0,
-      no: 0,
+      yes: reqbody.helpful.yes,
+      no: reqbody.helpful.no,
     },
   };
 
