@@ -146,6 +146,7 @@
 
 .terms-and-conditions:hover {
   cursor: pointer;
+  color:deepskyblue;
 }
 
 /*
@@ -225,6 +226,54 @@
   border: 1px solid #888;
   width: 50%; /* Could be more or less, depending on screen size */
 }
+
+/*
+  ========================================
+  Modal Fonts and Styling
+  ========================================
+*/
+
+.write-rating {
+  font-size: 25px;
+  margin-bottom: 10px;
+}
+
+.one-star {
+  margin-left: 20px;
+}
+
+.rating-type {
+  margin-left: 30px;
+}
+
+.write-title, .write-review-body, .write-recommended, .user-info {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+#title-input {
+  margin-left: 25px;
+}
+
+#yes-button, #no-button {
+  background-color: grey;
+  color: white;
+  border: 1px solid white;
+  padding: 10px 15px;
+}
+#yes-button:hover, #no-button:hover {
+  cursor: pointer;
+}
+
+#yes-button {
+  margin-left: 20px;
+}
+
+#no-button {
+  margin-left: 5px;
+}
+
+
 
 /*
   ========================================

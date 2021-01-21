@@ -54,7 +54,8 @@ const WriteReview = (props) => {
     }
   }
 
-  function pranked() {
+  function pranked(e) {
+    e.preventDefault();
     alert('Prankd');
   }
 
@@ -118,11 +119,15 @@ const WriteReview = (props) => {
     addCheck('user-recommended');
 
     if (eventName === 'yes-button') {
+      document.getElementById('yes-button').style.backgroundColor = 'darkgrey';
+      document.getElementById('no-button').style.backgroundColor = 'grey';
       document.getElementById('yes-button').setAttribute('disabled', 'true');
       document.getElementById('no-button').removeAttribute('disabled');
       setRecommended(true);
     }
     if (eventName === 'no-button') {
+      document.getElementById('yes-button').style.backgroundColor = 'grey';
+      document.getElementById('no-button').style.backgroundColor = 'darkgrey';
       document.getElementById('yes-button').removeAttribute('disabled');
       document.getElementById('no-button').setAttribute('disabled', 'true');
       setRecommended(false);
@@ -190,7 +195,7 @@ const WriteReview = (props) => {
         <div className="write-rating">
           <span id="rating-span">Product Rating</span>
           {'  '}
-          <span className="1-star write-review-star" id="1" onClick={starClick} role="button" tabIndex={0} onKeyPress={starClick} onMouseOver={starClick} onFocus={() => undefined}>★</span>
+          <span className="one-star write-review-star" id="1" onClick={starClick} role="button" tabIndex={0} onKeyPress={starClick} onMouseOver={starClick} onFocus={() => undefined}>★</span>
           <span className="2-star write-review-star" id="2" onClick={starClick} role="button" tabIndex={0} onKeyPress={starClick} onMouseOver={starClick} onFocus={() => undefined}>★</span>
           <span className="3-star write-review-star" id="3" onClick={starClick} role="button" tabIndex={0} onKeyPress={starClick} onMouseOver={starClick} onFocus={() => undefined}>★</span>
           <span className="4-star write-review-star" id="4" onClick={starClick} role="button" tabIndex={0} onKeyPress={starClick} onMouseOver={starClick} onFocus={() => undefined}>★</span>
