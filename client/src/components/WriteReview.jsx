@@ -1,3 +1,4 @@
+/* eslint-disable no-alert */
 /* eslint-disable react/prop-types */
 /* eslint-disable object-shorthand */
 /* eslint-disable jsx-a11y/label-has-associated-control */
@@ -17,6 +18,7 @@ const WriteReview = (props) => {
   const [name, setName] = useState('');
   const [location, setLocation] = useState('');
   const [agreed, setAgreed] = useState(false);
+  const [required, setRequired] = useState(false);
 
   function textHandler(num) {
     if (num === 1) {
@@ -43,13 +45,17 @@ const WriteReview = (props) => {
   function starHandler(num) {
     const div = document.getElementById('star-describer');
     div.textContent = textHandler(num);
-    const colors = ['blue', 'red', 'orange', 'yellow', 'lawngreen', 'green'];
+    const colors = ['blue', 'red', 'darkorange', 'teal', 'lawngreen', 'green'];
     for (let i = 1; i <= num; i += 1) {
       document.getElementById(`${i}`).style.color = colors[num];
     }
     for (let i = num + 1; i <= 5; i += 1) {
       document.getElementById(`${i}`).style.color = 'black';
     }
+  }
+
+  function pranked() {
+    alert('Prankd');
   }
 
   function fullFormReset() {
@@ -85,6 +91,7 @@ const WriteReview = (props) => {
     resetChecks();
     starReset();
     buttonReset();
+    setRequired(false);
     document.getElementById('review-form').reset();
   }
 
@@ -122,31 +129,50 @@ const WriteReview = (props) => {
     }
   }
 
+  function requiredChecker() {
+    let allFilled = true;
+    const qualifications = [rating, title, body, name, location];
+    qualifications.forEach((text) => {
+      if (text === '') {
+        allFilled = false;
+      }
+    });
+    if (recommended !== null && agreed !== false && allFilled) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   function handleSubmit() {
-    const data = {
-      user: name,
-      location: location,
-      review_count: Math.round(Math.random() * 5),
-      review_date: new Date(),
-      title: title,
-      body: body,
-      rating: rating,
-      recommended: recommended,
-      verified_user: false,
-      ratings: {
-        overall: rating,
-        quality: Math.round(Math.random() * 5),
-        durability: Math.round(Math.random() * 5),
-      },
-      helpful: {
-        yes: 0,
-        no: 0,
-      },
-    };
-    props.submitReview(data);
-    const modal = document.getElementById('write-review-modal');
-    modal.style.display = 'none';
-    fullFormReset();
+    if (requiredChecker()) {
+      const data = {
+        user: name,
+        location: location,
+        review_count: Math.round(Math.random() * 5),
+        review_date: new Date(),
+        title: title,
+        body: body,
+        rating: rating,
+        recommended: recommended,
+        verified_user: false,
+        ratings: {
+          overall: rating,
+          quality: Math.round(Math.random() * 5),
+          durability: Math.round(Math.random() * 5),
+        },
+        helpful: {
+          yes: 0,
+          no: 0,
+        },
+      };
+      props.submitReview(data);
+      const modal = document.getElementById('write-review-modal');
+      modal.style.display = 'none';
+      fullFormReset();
+    } else {
+      setRequired(true);
+    }
   }
 
   return (
@@ -155,9 +181,14 @@ const WriteReview = (props) => {
         <span>My Review</span>
         <button className="close-modal-button" type="button" onClick={closeModal}>☒</button>
       </div>
+      {required ? (
+        <div className="required-div">
+          <span className="required-text">Please fill out all required fields.</span>
+        </div>
+      ) : null}
       <div className="modal-body">
         <div className="write-rating">
-          <span>Product Rating</span>
+          <span id="rating-span">Product Rating</span>
           {'  '}
           <span className="1-star write-review-star" id="1" onClick={starClick} role="button" tabIndex={0} onKeyPress={starClick} onMouseOver={starClick} onFocus={() => undefined}>★</span>
           <span className="2-star write-review-star" id="2" onClick={starClick} role="button" tabIndex={0} onKeyPress={starClick} onMouseOver={starClick} onFocus={() => undefined}>★</span>
@@ -169,7 +200,7 @@ const WriteReview = (props) => {
         </div>
         <form id="review-form">
           <div className="write-title">
-            <label htmlFor="title">Review Title</label>
+            <label htmlFor="title" id="title-span">Review Title</label>
             <span className="checked user-title" id="user-title-check">✔</span>
             <input
               type="text"
@@ -212,13 +243,13 @@ const WriteReview = (props) => {
             </div>
           </div>
           <div className="write-recommended">
-            <span>Would you reccomend this to a friend?</span>
+            <span id="recommended-span">Would you reccomend this to a friend?</span>
             <button type="button" id="yes-button" onClick={handleRecButton}>Yes</button>
             <button type="button" id="no-button" onClick={handleRecButton}>No</button>
             <span className="checked user-recommended" id="user-recommended">✔</span>
           </div>
           <div className="user-info">
-            <span className="name-span">Name</span>
+            <span className="name-span" id="name-span">Name</span>
             <input
               type="text"
               placeholder="Ex: Tanis Kiel"
@@ -235,7 +266,7 @@ const WriteReview = (props) => {
               }}
             />
             <span className="checked user-name" id="user-name-check">✔</span>
-            <span className="location-span">Location</span>
+            <span className="location-span" id="location-span">Location</span>
             <input
               type="text"
               placeholder="Ex: Minas Tirith, Gondor"
@@ -261,10 +292,15 @@ const WriteReview = (props) => {
               required
               onClick={() => setAgreed(!agreed)}
             />
-            <label htmlFor="terms-conditions">I agree to the terms and conditions.</label>
+            <label htmlFor="terms-conditions" id="terms-conditions-label">
+              I agree to the
+              {' '}
+              <span className="terms-and-conditions" onClick={pranked} onKeyPress={pranked}>terms and conditions</span>
+              .
+            </label>
           </div>
           <div className="submit-div">
-            <button className="submit-button" type="button" onClick={handleSubmit}>Submit</button>
+            <button className="submit-button" type="button" onClick={handleSubmit}>Post Review</button>
           </div>
         </form>
       </div>

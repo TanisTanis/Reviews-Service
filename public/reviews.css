@@ -140,6 +140,14 @@
   color: red;
 }
 
+.terms-and-conditions {
+  text-decoration: underline;
+}
+
+.terms-and-conditions:hover {
+  cursor: pointer;
+}
+
 /*
   ========================================
   Buttons
@@ -154,6 +162,20 @@
   padding: 10px 20px;
   border-radius: 4px;
   border: none;
+}
+
+.submit-button {
+  background-color: #225c4e;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 4px;
+  border: none;
+}
+
+.submit-button:hover {
+  color: #225c4e;
+  background-color: #c7dfd1;
+  cursor: pointer;
 }
 
 .write-review:hover {
@@ -238,4 +260,14 @@ textarea {
   border: none;
   background-color: #fefefe;
   margin: 0px;
+  color: grey;
+}
+
+.close-modal-button:hover {
+  color:black;
+  cursor: pointer;
+}
+
+.required-text {
+  color: red;
 }
