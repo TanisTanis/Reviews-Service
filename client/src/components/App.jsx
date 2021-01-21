@@ -59,7 +59,7 @@ class App extends React.Component {
   }
 
   handleSelectChange(event) {
-    const sortMethod = event.target.value;
+    const sortMethod = event.target.value || 'most-recent';
     let sorted = this.state.reviews;
     if (sortMethod === 'most-recent') {
       sorted = sorted.sort(this.sortByNewest);

@@ -88,7 +88,7 @@ const ReviewListItem = (props) => {
 
   return (
     <div className={reviewClass(props.index)}>
-      <section className="name-location">
+      <span className="name-location">
         <div className="name-loc-div">
           <div className="name">{props.review.user}</div>
           <div className="location">{props.review.location}</div>
@@ -100,7 +100,7 @@ const ReviewListItem = (props) => {
             </span>
           </div>
         </div>
-      </section>
+      </span>
       <section className="main-review">
         <div className="stars-date-div">
           <span className="gold-stars">{starFormatterFull(props.review.ratings.overall)}</span>

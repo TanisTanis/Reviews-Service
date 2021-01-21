@@ -45,7 +45,7 @@ const WriteReview = (props) => {
   function starHandler(num) {
     const div = document.getElementById('star-describer');
     div.textContent = textHandler(num);
-    const colors = ['blue', 'red', 'darkorange', 'teal', 'lawngreen', 'green'];
+    const colors = ['blue', 'red', 'darkorange', 'teal', 'limegreen', 'green'];
     for (let i = 1; i <= num; i += 1) {
       document.getElementById(`${i}`).style.color = colors[num];
     }
@@ -185,6 +185,7 @@ const WriteReview = (props) => {
       <div className="modal-header">
         <span className="modal-title">My Review</span>
         <button className="close-modal-button" type="button" onClick={closeModal}>☒</button>
+        <div className="required-asterisk">Required fields are marked with *</div>
       </div>
       {required ? (
         <div className="required-div">
@@ -194,6 +195,7 @@ const WriteReview = (props) => {
       <div className="modal-body">
         <div className="write-rating">
           <span id="rating-span">Product Rating</span>
+          <span className="asterisk">*</span>
           {'  '}
           <span className="one-star write-review-star" id="1" onClick={starClick} role="button" tabIndex={0} onKeyPress={starClick} onMouseOver={starClick} onFocus={() => undefined}>★</span>
           <span className="2-star write-review-star" id="2" onClick={starClick} role="button" tabIndex={0} onKeyPress={starClick} onMouseOver={starClick} onFocus={() => undefined}>★</span>
@@ -206,6 +208,7 @@ const WriteReview = (props) => {
         <form id="review-form">
           <div className="write-title">
             <label htmlFor="title" id="title-span">Review Title</label>
+            <span className="asterisk">*</span>
             <span className="checked user-title" id="user-title-check">✔</span>
             <input
               type="text"
@@ -226,6 +229,7 @@ const WriteReview = (props) => {
           </div>
           <div className="write-review-body">
             <span className="review-body">Review</span>
+            <span className="asterisk">*</span>
             <span className="checked user-text" id="user-text-check">✔</span>
             <div>
               <textarea
@@ -249,15 +253,17 @@ const WriteReview = (props) => {
           </div>
           <div className="write-recommended">
             <span id="recommended-span">Would you recommend this to a friend?</span>
+            <span className="asterisk">*</span>
             <button type="button" id="yes-button" onClick={handleRecButton}>Yes</button>
             <button type="button" id="no-button" onClick={handleRecButton}>No</button>
             <span className="checked user-recommended" id="user-recommended">✔</span>
           </div>
           <div className="user-info">
             <span className="name-span" id="name-span">Name</span>
+            <span className="asterisk">*</span>
             <input
               type="text"
-              placeholder="Ex: Tanis Kiel"
+              placeholder="Ex: Tom Bombadil"
               id="name-input"
               required
               onChange={(e) => {
@@ -272,6 +278,7 @@ const WriteReview = (props) => {
             />
             <span className="checked user-name" id="user-name-check">✔</span>
             <span className="location-span" id="location-span">Location</span>
+            <span className="asterisk">*</span>
             <input
               type="text"
               placeholder="Ex: Minas Tirith, Gondor"
@@ -302,6 +309,7 @@ const WriteReview = (props) => {
               {' '}
               <span className="terms-and-conditions" onClick={pranked} onKeyPress={pranked}>terms and conditions</span>
               .
+              <span className="asterisk">*</span>
             </label>
           </div>
           <div className="submit-div">

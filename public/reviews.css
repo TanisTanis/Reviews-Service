@@ -97,6 +97,11 @@
   font-weight: bold;
 }
 
+.name {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
 .rating-number {
   font-size: 15px;
 }
@@ -364,4 +369,18 @@ textarea {
 
 .required-text {
   color: red;
+}
+
+#user-name-check, #user-location-check {
+  margin-left: 12px;
+}
+
+.asterisk {
+  font-size: .9em;
+  /* padding: 0 20px; */
+}
+
+.required-asterisk {
+  font-size: 13px;
+  margin-bottom: 20px;
 }
