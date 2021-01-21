@@ -183,7 +183,7 @@ const WriteReview = (props) => {
   return (
     <div className="modal-content">
       <div className="modal-header">
-        <span>My Review</span>
+        <span className="modal-title">My Review</span>
         <button className="close-modal-button" type="button" onClick={closeModal}>☒</button>
       </div>
       {required ? (
@@ -248,7 +248,7 @@ const WriteReview = (props) => {
             </div>
           </div>
           <div className="write-recommended">
-            <span id="recommended-span">Would you reccomend this to a friend?</span>
+            <span id="recommended-span">Would you recommend this to a friend?</span>
             <button type="button" id="yes-button" onClick={handleRecButton}>Yes</button>
             <button type="button" id="no-button" onClick={handleRecButton}>No</button>
             <span className="checked user-recommended" id="user-recommended">✔</span>

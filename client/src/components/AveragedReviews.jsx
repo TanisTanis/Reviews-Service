@@ -1,3 +1,4 @@
+/* eslint-disable max-len */
 /* eslint-disable react/prop-types */
 /* eslint-disable react/destructuring-assignment */
 import React, { useState, useEffect } from 'react';
@@ -9,18 +10,19 @@ const AveragedReviews = (props) => {
     setRatings(props.ratings);
   }, [props.ratings]);
 
-  function getStars(rating) {
-    const percent = Math.floor((rating / 5) * 100);
-    return percent;
-  }
+  // function getStars(rating) {
+  //   const percent = Math.floor((rating / 5) * 100);
+  //   return percent;
+  // }
 
   return (
     <section className="averaged-reviews">
-      Average Customer Ratings
+      <span className="average-rating-title">Average Customer Ratings</span>
       <div className="ratings overall">
         Overall:
-        {'  '}
-        <span
+        {' '}
+        <span className="averaged-review-num">{ratings.overall}</span>
+        {/* <span
           className="averaged-review-stars"
           style={{
             background: `linear-gradient(90deg, gold, gold ${getStars(ratings.overall)}%, transparent, transparent ${getStars(ratings.overall)}%)`,
@@ -30,12 +32,13 @@ const AveragedReviews = (props) => {
           }}
         >
           ★★★★★
-        </span>
+        </span> */}
       </div>
       <div className="ratings quality">
         Quality:
-        {'  '}
-        <span
+        {' '}
+        <span className="averaged-review-num">{ratings.quality}</span>
+        {/* <span
           className="averaged-review-stars"
           style={{
             background: `linear-gradient(90deg, gold, gold ${getStars(ratings.quality)}%, transparent, transparent ${getStars(ratings.quality)}%)`,
@@ -45,12 +48,13 @@ const AveragedReviews = (props) => {
           }}
         >
           ★★★★★
-        </span>
+        </span> */}
       </div>
       <div className="ratings durability">
         Durability:
-        {'  '}
-        <span
+        {' '}
+        <span className="averaged-review-num">{ratings.durability}</span>
+        {/* <span
           className="averaged-review-stars"
           style={{
             background: `linear-gradient(90deg, gold, gold ${getStars(ratings.durability)}%, transparent, transparent ${getStars(ratings.durability)}%)`,
@@ -60,7 +64,7 @@ const AveragedReviews = (props) => {
           }}
         >
           ★★★★★
-        </span>
+        </span> */}
       </div>
     </section>
   );

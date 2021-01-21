@@ -89,23 +89,29 @@ const ReviewListItem = (props) => {
   return (
     <div className={reviewClass(props.index)}>
       <section className="name-location">
-        <div className="name">{props.review.user}</div>
-        <div className="location">{props.review.location}</div>
-        <div className="review-count">
-          Review
-          {' '}
-          <span className="review-number">
-            {props.review.review_count}
-          </span>
+        <div className="name-loc-div">
+          <div className="name">{props.review.user}</div>
+          <div className="location">{props.review.location}</div>
+          <div className="review-count">
+            Review
+            {' '}
+            <span className="review-number">
+              {props.review.review_count}
+            </span>
+          </div>
         </div>
       </section>
       <section className="main-review">
-        <span className="gold-stars">{starFormatterFull(props.review.ratings.overall)}</span>
-        <span className="grey-stars">{starFormatterEmpty(5 - props.review.ratings.overall)}</span>
-        <span className="seperator">{' · '}</span>
-        <span className="date">{moment(props.review.review_date).fromNow()}</span>
+        <div className="stars-date-div">
+          <span className="gold-stars">{starFormatterFull(props.review.ratings.overall)}</span>
+          <span className="grey-stars">{starFormatterEmpty(5 - props.review.ratings.overall)}</span>
+          <span className="seperator">{' · '}</span>
+          <span className="date">{moment(props.review.review_date).fromNow()}</span>
+        </div>
         <div className="review-body">
-          <span className="title">{props.review.title}</span>
+          <div className="title-of-review">
+            <span className="title">{props.review.title}</span>
+          </div>
           <div className="body">
             {props.review.body}
           </div>

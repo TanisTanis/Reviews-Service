@@ -12,43 +12,43 @@ const RatingsCount = (props) => {
 
   return (
     <div className="rating-snapshot">
-      <div className="rating-snapshot-text">
-        Rating Snapshot
+      <div>
+        <span className="rating-snapshot-text">Rating Snapshot</span>
       </div>
       <div>
         <span className="rating-number">5</span>
         {' '}
         <span className="rating-snapshot-star">★</span>
         {': '}
-        {ratings[5]}
+        <span className="rating-result">{ratings[5]}</span>
       </div>
       <div>
         <span className="rating-number">4</span>
         {' '}
         <span className="rating-snapshot-star">★</span>
         {': '}
-        {ratings[4]}
+        <span className="rating-result">{ratings[4]}</span>
       </div>
       <div>
         <span className="rating-number">3</span>
         {' '}
         <span className="rating-snapshot-star">★</span>
         {': '}
-        {ratings[3]}
+        <span className="rating-result">{ratings[3]}</span>
       </div>
       <div>
         <span className="rating-number">2</span>
         {' '}
         <span className="rating-snapshot-star">★</span>
         {': '}
-        {ratings[2]}
+        <span className="rating-result">{ratings[2]}</span>
       </div>
       <div>
         <span className="rating-number">1</span>
         {' '}
         <span className="rating-snapshot-star">★</span>
         {': '}
-        {ratings[1]}
+        <span className="rating-result">{ratings[1]}</span>
       </div>
     </div>
   );
