@@ -24,18 +24,6 @@ app.get('/api/products/:itemid/reviews', (req, res) => {
   });
 });
 
-app.get('/api/products/:itemid/reviews/ratings', (req, res) => {
-  const reviewId = parseInt(req.params.itemid, 10);
-  const numOfItems = 5;
-  model.getAverageRatings(reviewId, numOfItems, (err, data) => {
-    if (err) {
-      res.send(err);
-    } else {
-      res.send(data);
-    }
-  });
-});
-
 app.post('/api/products/reviews', (req, res) => {
   const info = req.body;
   model.addReview(info, (err, newId) => {

@@ -37,21 +37,13 @@ class App extends React.Component {
   componentDidMount() {
     axios.get('/api/products/80/reviews')
       .then((data) => {
-        const sorted = data.data.sort(this.sortByNewest);
+        console.log(data);
+        const sorted = data.data.reviews.sort(this.sortByNewest);
         this.setState({
           reviews: sorted,
+          ratings: data.data.ratings,
         });
         this.calculateRatings();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
-    axios.get('/api/products/80/reviews/ratings')
-      .then((ratings) => {
-        this.setState({
-          ratings: ratings.data,
-        });
       })
       .catch((err) => {
         console.log(err);
@@ -92,30 +84,6 @@ class App extends React.Component {
   handleModalOpen() {
     const modal = document.getElementById('write-review-modal');
     modal.style.display = 'block';
-  }
-
-  getReviews(productId) {
-    axios.get(`/api/products/${productId}/reviews`)
-      .then((data) => {
-        this.setState({
-          reviews: data.data,
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-  }
-
-  getRatings(productId) {
-    axios.get(`/api/products/${productId}/reviews/ratings`)
-      .then((ratings) => {
-        this.setState({
-          ratings: ratings.data,
-        });
-      })
-      .catch((err) => {
-        console.log(err);
-      });
   }
 
   calculateRatings() {

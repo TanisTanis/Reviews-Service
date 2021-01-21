@@ -10,35 +10,25 @@ function getReviews(id, num, callback) {
       $gte: id,
       $lte: id + num,
     },
-  }, (err, data) => {
-    if (err) {
-      callback(err);
-    }
-    callback(null, data);
-  });
-}
-
-function getAverageRatings(id, num, callback) {
-  db.Review.find({
-    review_id: {
-      $gte: id,
-      $lte: id + num,
-    },
   })
-    .then((data) => {
+    .then((reviews) => {
       const ratings = {
         overall: 0,
         quality: 0,
         durability: 0,
       };
-      data.forEach((review) => {
+      reviews.forEach((review) => {
         const keys = Object.keys(review.ratings);
         keys.forEach((category) => {
           ratings[category] = ratings[category] + review.ratings[category];
         });
       });
       db.findAverage(ratings, num + 1);
-      callback(ratings);
+      const resultData = {
+        reviews,
+        ratings,
+      };
+      callback(null, resultData);
     });
 }
 
@@ -125,7 +115,6 @@ function addReview(reqbody, callback) {
 
 module.exports = {
   getReviews,
-  getAverageRatings,
   incrementYes,
   incrementNo,
   addReview,
