@@ -10,35 +10,25 @@ function getReviews(id, num, callback) {
       $gte: id,
       $lte: id + num,
     },
-  }, (err, data) => {
-    if (err) {
-      callback(err);
-    }
-    callback(null, data);
-  });
-}
-
-function getRatings(id, num, callback) {
-  db.Review.find({
-    review_id: {
-      $gte: id,
-      $lte: id + num,
-    },
   })
-    .then((data) => {
+    .then((reviews) => {
       const ratings = {
         overall: 0,
         quality: 0,
         durability: 0,
       };
-      data.forEach((review) => {
+      reviews.forEach((review) => {
         const keys = Object.keys(review.ratings);
         keys.forEach((category) => {
           ratings[category] = ratings[category] + review.ratings[category];
         });
       });
       db.findAverage(ratings, num + 1);
-      callback(ratings);
+      const resultData = {
+        reviews,
+        ratings,
+      };
+      callback(null, resultData);
     });
 }
 
@@ -76,14 +66,15 @@ function addReview(reqbody, callback) {
   } = reqbody;
   let verified;
   let recommended;
+  let newId;
 
-  if (reqbody.recommended.toLowerCase() === 'true') {
+  if (reqbody.recommended.toString().toLowerCase() === 'true') {
     recommended = true;
   } else {
     recommended = false;
   }
 
-  if (reqbody.verified_user.toLowerCase() === 'true') {
+  if (reqbody.verified_user.toString().toLowerCase() === 'true') {
     verified = true;
   } else {
     verified = false;
@@ -103,18 +94,18 @@ function addReview(reqbody, callback) {
       durability: reqbody.ratings.durability,
     },
     helpful: {
-      yes: 0,
-      no: 0,
+      yes: reqbody.helpful.yes,
+      no: reqbody.helpful.no,
     },
   };
 
   db.Review.findOne({}).sort('-review_id')
     .then((data) => {
-      const newId = data.review_id + 1;
+      newId = data.review_id + 1;
       newPost.review_id = newId;
       db.Review.create(newPost)
         .then((response) => {
-          callback(null, response);
+          callback(null, newId);
         });
     })
     .catch((err) => {
@@ -124,7 +115,6 @@ function addReview(reqbody, callback) {
 
 module.exports = {
   getReviews,
-  getRatings,
   incrementYes,
   incrementNo,
   addReview,

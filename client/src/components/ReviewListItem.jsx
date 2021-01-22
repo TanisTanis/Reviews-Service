@@ -9,7 +9,15 @@ import axios from 'axios';
 const ReviewListItem = (props) => {
   const [helpfulYes, setYes] = useState(props.review.helpful.yes);
   const [helpfulNo, setNo] = useState(props.review.helpful.no);
-  function starFormatter(num) {
+  function starFormatterFull(num) {
+    let stars = '';
+    for (let i = 0; i < num; i += 1) {
+      stars += '★';
+    }
+    return stars;
+  }
+
+  function starFormatterEmpty(num) {
     let stars = '';
     for (let i = 0; i < num; i += 1) {
       stars += '☆';
@@ -80,24 +88,30 @@ const ReviewListItem = (props) => {
 
   return (
     <div className={reviewClass(props.index)}>
-      <section className="name-location">
-        <div className="name">{props.review.user}</div>
-        <div className="location">{props.review.location}</div>
-        <div className="review-count">
-          Review
-          {' '}
-          <span className="review-number">
-            {props.review.review_count}
-          </span>
+      <span className="name-location">
+        <div className="name-loc-div">
+          <div className="name">{props.review.user}</div>
+          <div className="location">{props.review.location}</div>
+          <div className="review-count">
+            Review
+            {' '}
+            <span className="review-number">
+              {props.review.review_count}
+            </span>
+          </div>
         </div>
-      </section>
+      </span>
       <section className="main-review">
-        <span className="gold-stars">{starFormatter(props.review.ratings.overall)}</span>
-        <span className="grey-stars">{starFormatter(5 - props.review.ratings.overall)}</span>
-        <span className="seperator">{' · '}</span>
-        <span className="date">{moment(props.review.review_date).fromNow()}</span>
+        <div className="stars-date-div">
+          <span className="gold-stars">{starFormatterFull(props.review.ratings.overall)}</span>
+          <span className="grey-stars">{starFormatterEmpty(5 - props.review.ratings.overall)}</span>
+          <span className="seperator">{' · '}</span>
+          <span className="date">{moment(props.review.review_date).fromNow()}</span>
+        </div>
         <div className="review-body">
-          <span className="title">{props.review.title}</span>
+          <div className="title-of-review">
+            <span className="title">{props.review.title}</span>
+          </div>
           <div className="body">
             {props.review.body}
           </div>
@@ -121,7 +135,7 @@ const ReviewListItem = (props) => {
       </section>
       {props.review.verified_user ? (
         <span className="verified-user">
-          <span className="star">*</span>
+          <span className="verified-star">{'✪  '}</span>
           Verified Purchaser
         </span>
       ) : null}
