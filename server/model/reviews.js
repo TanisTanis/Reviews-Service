@@ -17,7 +17,15 @@ function getReviews(id, num, callback) {
         quality: 0,
         durability: 0,
       };
+      const ratingsCount = {
+        5: 0,
+        4: 0,
+        3: 0,
+        2: 0,
+        1: 0,
+      };
       reviews.forEach((review) => {
+        ratingsCount[review.ratings.overall] += 1;
         const keys = Object.keys(review.ratings);
         keys.forEach((category) => {
           ratings[category] = ratings[category] + review.ratings[category];
@@ -27,6 +35,7 @@ function getReviews(id, num, callback) {
       const resultData = {
         reviews,
         ratings,
+        ratingsCount,
       };
       callback(null, resultData);
     });
@@ -52,7 +61,7 @@ function incrementNo(query, callback) {
       const noCount = data[0].helpful.no;
       db.Review.findOneAndUpdate(query, { 'helpful.no': noCount + 1 }, { rawResult: true })
         .then((response) => {
-          callback('response');
+          callback(null, response);
         });
     })
     .catch((err) => {

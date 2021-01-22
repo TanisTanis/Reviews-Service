@@ -29,21 +29,21 @@ class App extends React.Component {
     };
 
     this.handleSelectChange = this.handleSelectChange.bind(this);
-    this.calculateRatings = this.calculateRatings.bind(this);
     this.handleModalOpen = this.handleModalOpen.bind(this);
     this.submitReview = this.submitReview.bind(this);
+    this.calculateRatings = this.calculateRatings.bind(this);
   }
 
   componentDidMount() {
     axios.get('/api/products/80/reviews')
       .then((data) => {
-        console.log(data);
+        console.log(data.data.ratingsCount);
         const sorted = data.data.reviews.sort(this.sortByNewest);
         this.setState({
           reviews: sorted,
           ratings: data.data.ratings,
+          ratingsCount: data.data.ratingsCount,
         });
-        this.calculateRatings();
       })
       .catch((err) => {
         console.log(err);
