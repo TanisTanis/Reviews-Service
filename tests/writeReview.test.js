@@ -1,15 +1,21 @@
 import React from 'react';
 
-import { render, fireEvent, waitFor, screen, queryByText } from '@testing-library/react';
+import { render, fireEvent, waitFor, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
+import axios from 'axios';
 
 import WriteReview from '../client/src/components/WriteReview';
 import fakeData from './fakeData';
+jest.mock('axios');
 
 describe('Write Review Modal', () => {
 
-  beforeEach(() => {
-    render(<WriteReview />);
+  beforeEach(async () => {
+    try {
+      await render(<WriteReview />);
+    } catch (err) {
+      expect(err).toEqual(new Error());
+    }
   });
 
 
@@ -20,11 +26,11 @@ describe('Write Review Modal', () => {
     expect(screen.getByText('Poor'));
     fireEvent.click(document.getElementById('3'));
     expect(screen.getByText('Average'));
-    expect(document.getElementById("user-review-check")).toBeInTheDocument();
   });
 
-  test('Write Review Title Functionality', () => {
-    fireEvent.keyDown(screen.getByPlaceholderText('Ex: Great for hiking!'), {key: 'A', code: 'KeyA'});
-    expect(document.getElementById('user-title-check')).toBeInTheDocument();
-  })
+  test('Won\'t submit review until all fields are filled out', () => {
+    fireEvent.click(document.getElementById('submit-button'));
+    expect(screen.getByText('Please fill out all required fields.'));
+  });
+
 });

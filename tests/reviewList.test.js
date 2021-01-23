@@ -8,8 +8,13 @@ import fakeData from './fakeData';
 
 describe('Review List Component', () => {
 
-  beforeEach(() => {
-    render(<ReviewList reviews={fakeData} />)
+  beforeEach(async () => {
+    try {
+      await render(<ReviewList reviews={fakeData.reviews} />);
+    } catch (err) {
+      console.log(err);
+    }
+
   });
 
   test('Dynamically renders reviews based on props', () => {

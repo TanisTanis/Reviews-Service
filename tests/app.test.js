@@ -1,14 +1,28 @@
 import React from 'react';
 
-import { render, fireEvent, waitFor, screen, queryByText } from '@testing-library/react';
+import { render, fireEvent, waitFor, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
+import axios from 'axios';
 
 import App from '../client/src/components/App';
+import fakeData from './fakeData';
+jest.mock('axios');
 
 describe('Main App Component', () => {
 
-  beforeEach(() => {
-    render(<App />);
+  beforeEach(async () => {
+    try {
+      axios.get.mockResolvedValue({
+        data: {
+          reviews: fakeData.reviews,
+          ratings: fakeData.ratings,
+          ratingsCount: fakeData.ratingsCount,
+        },
+      });
+      await render(<App />);
+    } catch (err) {
+      console.log(err);
+    }
   });
 
   test('Sorting Feature Displays All Sort Types', () => {

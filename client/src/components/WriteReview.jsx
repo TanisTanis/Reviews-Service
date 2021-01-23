@@ -87,6 +87,8 @@ const WriteReview = (props) => {
     function buttonReset() {
       document.getElementById('yes-button').removeAttribute('disabled');
       document.getElementById('no-button').removeAttribute('disabled');
+      document.getElementById('no-button').style.backgroundColor = 'grey';
+      document.getElementById('yes-button').style.backgroundColor = 'grey';
     }
     resetState();
     resetChecks();
@@ -313,7 +315,7 @@ const WriteReview = (props) => {
             </label>
           </div>
           <div className="submit-div">
-            <button className="submit-button" type="button" onClick={handleSubmit}>Post Review</button>
+            <button className="submit-button" id="submit-button" type="button" onClick={handleSubmit}>Post Review</button>
           </div>
         </form>
       </div>
