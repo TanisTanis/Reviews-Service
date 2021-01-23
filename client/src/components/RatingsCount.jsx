@@ -6,9 +6,7 @@ import React, { useState, useEffect } from 'react';
 const RatingsCount = (props) => {
   const [ratings, setRatings] = useState(props.ratings);
 
-  useEffect(() => {
-    setRatings(props.calculateRatings());
-  }, [props.reviews]);
+  useEffect(() => { setRatings(props.calculateRatings()); }, [props.reviews]);
 
   return (
     <div className="rating-snapshot">

@@ -19,35 +19,18 @@ class App extends React.Component {
     this.state = {
       reviews: [],
       ratings: [],
-      ratingsCount: {
-        5: 0,
-        4: 0,
-        3: 0,
-        2: 0,
-        1: 0,
-      },
+      ratingsCount: {},
     };
 
     this.handleSelectChange = this.handleSelectChange.bind(this);
-    this.calculateRatings = this.calculateRatings.bind(this);
     this.handleModalOpen = this.handleModalOpen.bind(this);
     this.submitReview = this.submitReview.bind(this);
+    this.calculateRatings = this.calculateRatings.bind(this);
+    this.getReviews = this.getReviews.bind(this);
   }
 
   componentDidMount() {
-    axios.get('/api/products/80/reviews')
-      .then((data) => {
-        console.log(data);
-        const sorted = data.data.reviews.sort(this.sortByNewest);
-        this.setState({
-          reviews: sorted,
-          ratings: data.data.ratings,
-        });
-        this.calculateRatings();
-      })
-      .catch((err) => {
-        console.log(err);
-      });
+    this.getReviews(10);
   }
 
   handleSelectChange(event) {
@@ -84,6 +67,21 @@ class App extends React.Component {
   handleModalOpen() {
     const modal = document.getElementById('write-review-modal');
     modal.style.display = 'block';
+  }
+
+  getReviews(id) {
+    axios.get(`/api/products/${id}/reviews`)
+      .then((data) => {
+        const sorted = data.data.reviews.sort(this.sortByNewest);
+        this.setState({
+          reviews: sorted,
+          ratings: data.data.ratings,
+          ratingsCount: data.data.ratingsCount,
+        });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
   }
 
   calculateRatings() {
