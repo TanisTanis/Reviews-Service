@@ -59,6 +59,22 @@ const WriteReview = (props) => {
     alert('Prankd');
   }
 
+  function starMouseLeave() {
+    if (!ratingClick) {
+      document.getElementById('star-describer').textContent = '';
+      for (let i = 1; i <= 5; i += 1) {
+        document.getElementById(`${i}`).style.color = 'black';
+      }
+    }
+  }
+
+  function starReset() {
+    document.getElementById('star-describer').textContent = '';
+    for (let i = 1; i <= 5; i += 1) {
+      document.getElementById(`${i}`).style.color = 'black';
+    }
+  }
+
   function fullFormReset() {
     function resetState() {
       setRating('');
@@ -77,12 +93,6 @@ const WriteReview = (props) => {
       document.getElementById('user-text-check').style.display = 'none';
       document.getElementById('user-name-check').style.display = 'none';
       document.getElementById('user-location-check').style.display = 'none';
-    }
-    function starReset() {
-      document.getElementById('star-describer').textContent = '';
-      for (let i = 1; i <= 5; i += 1) {
-        document.getElementById(`${i}`).style.color = 'black';
-      }
     }
     function buttonReset() {
       document.getElementById('yes-button').removeAttribute('disabled');
@@ -199,11 +209,11 @@ const WriteReview = (props) => {
           <span id="rating-span">Product Rating</span>
           <span className="asterisk">*</span>
           {'  '}
-          <span className="one-star write-review-star" id="1" onClick={starClick} role="button" tabIndex={0} onKeyPress={starClick} onMouseOver={starClick} onFocus={() => undefined}>★</span>
-          <span className="2-star write-review-star" id="2" onClick={starClick} role="button" tabIndex={0} onKeyPress={starClick} onMouseOver={starClick} onFocus={() => undefined}>★</span>
-          <span className="3-star write-review-star" id="3" onClick={starClick} role="button" tabIndex={0} onKeyPress={starClick} onMouseOver={starClick} onFocus={() => undefined}>★</span>
-          <span className="4-star write-review-star" id="4" onClick={starClick} role="button" tabIndex={0} onKeyPress={starClick} onMouseOver={starClick} onFocus={() => undefined}>★</span>
-          <span className="5-star write-review-star" id="5" onClick={starClick} role="button" tabIndex={0} onKeyPress={starClick} onMouseOver={starClick} onFocus={() => undefined}>★</span>
+          <span className="one-star write-review-star" id="1" onClick={starClick} role="button" tabIndex={0} onKeyPress={starClick} onMouseEnter={starClick} onMouseLeave={starMouseLeave} onFocus={() => undefined}>★</span>
+          <span className="2-star write-review-star" id="2" onClick={starClick} role="button" tabIndex={-1} onKeyPress={starClick} onMouseEnter={starClick} onMouseLeave={starMouseLeave} onFocus={() => undefined}>★</span>
+          <span className="3-star write-review-star" id="3" onClick={starClick} role="button" tabIndex={0} onKeyPress={starClick} onMouseEnter={starClick} onMouseLeave={starMouseLeave} onFocus={() => undefined}>★</span>
+          <span className="4-star write-review-star" id="4" onClick={starClick} role="button" tabIndex={-1} onKeyPress={starClick} onMouseEnter={starClick} onMouseLeave={starMouseLeave} onFocus={() => undefined}>★</span>
+          <span className="5-star write-review-star" id="5" onClick={starClick} role="button" tabIndex={0} onKeyPress={starClick} onMouseEnter={starClick} onMouseLeave={starMouseLeave} onFocus={() => undefined}>★</span>
           <span className="rating-type" id="star-describer">{ }</span>
           <span className="checked user-review" id="user-review-check">✔</span>
         </div>

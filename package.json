@@ -4,7 +4,7 @@
   "description": "Review Component of REI Clone",
   "main": "index.js",
   "scripts": {
-    "test": "jest",
+    "test": "jest --collectCoverage --verbose",
     "start": "nodemon server",
     "react-dev": "webpack -w",
     "seed": "node database/seed.js"
