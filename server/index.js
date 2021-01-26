@@ -5,7 +5,7 @@
 const express = require('express');
 
 const app = express();
-const PORT = 3000;
+const PORT = 3000 || process.env.PORT;
 const db = require('../database');
 const model = require('./model');
 
