@@ -11,7 +11,7 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /\.(js|jsx)$/,
+        test: /\.(js|jsx|css)$/,
         exclude: /node_modules/,
         use: [
           {
@@ -21,7 +21,11 @@ module.exports = {
             }
           }
         ]
-      }
+      },
+      {
+        test: /\.css$/i,
+        use: ['style-loader', 'css-loader'],
+      },
     ]
   },
   mode: 'development',
