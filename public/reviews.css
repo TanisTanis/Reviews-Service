@@ -346,6 +346,7 @@
 
 textarea {
   resize: none;
+  width: inherit;
 }
 
 .checked {

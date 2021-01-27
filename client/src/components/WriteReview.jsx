@@ -246,7 +246,6 @@ const WriteReview = (props) => {
             <div>
               <textarea
                 rows="8"
-                cols="75"
                 name="review-body"
                 id="body-input"
                 required
