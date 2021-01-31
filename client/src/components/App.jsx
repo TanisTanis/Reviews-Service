@@ -105,12 +105,14 @@ class App extends React.Component {
     const currentReviews = this.state.reviews;
     axios.post('/api/products/reviews', review)
       .then((response) => {
-        console.log(response);
         review.review_id = response.data;
         currentReviews.unshift(review);
         this.setState({
           reviews: currentReviews,
         });
+      })
+      .catch((err) => {
+        console.log(err);
       });
   }
 

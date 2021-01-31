@@ -1,7 +1,7 @@
 /* eslint-disable no-param-reassign */
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/reviews', {
+mongoose.connect('mongodb://database/reviews', {
   useNewUrlParser: true,
   useUnifiedTopology: true,
 });

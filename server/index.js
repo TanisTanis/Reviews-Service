@@ -30,8 +30,8 @@ app.post('/api/products/reviews', (req, res) => {
     if (err) {
       res.send(err);
     } else {
-      res.write(`${newId}`);
-      res.send();
+      // res.write(`${newId}`);
+      res.send(201);
     }
   });
 });
