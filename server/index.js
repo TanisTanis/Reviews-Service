@@ -17,7 +17,8 @@ app.get('/api/products/:itemid/reviews', (req, res) => {
   const numOfItems = 5;
   model.getReviews(reviewId, numOfItems, (err, data) => {
     if (err) {
-      res.send(err);
+      console.log(err);
+      res.send(500);
     } else {
       res.send(data);
     }
@@ -28,7 +29,8 @@ app.post('/api/products/reviews', (req, res) => {
   const info = req.body;
   model.addReview(info, (err, newId) => {
     if (err) {
-      res.send(err);
+      console.log(err);
+      res.send(500);
     } else {
       // res.write(`${newId}`);
       res.send(201);
@@ -41,7 +43,8 @@ app.patch('/api/products/:itemid/reviews/yes', (req, res) => {
   const query = { review_id: reviewId };
   model.incrementYes(query, (err, response) => {
     if (err) {
-      res.send(err);
+      console.log(err);
+      res.send(500);
     } else {
       res.send(response);
     }
@@ -53,7 +56,8 @@ app.patch('/api/products/:itemid/reviews/no', (req, res) => {
   const query = { review_id: reviewId };
   model.incrementNo(query, (err, response) => {
     if (err) {
-      res.send(err);
+      console.log(err);
+      res.send(500);
     } else {
       res.send(response);
     }
