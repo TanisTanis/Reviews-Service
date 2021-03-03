@@ -7,8 +7,12 @@
 ### Requirements
 
 <ul>
-  <li>MongoDB https://docs.mongodb.com/manual/installation/</li>
-  <li>NPM/Node.js https://www.npmjs.com/get-npm</li>
+  <li>MongoDB
+    <ul><li>https://docs.mongodb.com/manual/installation/</li></ul>
+  </li>
+  <li>NPM/Node.js 
+    <ul><li>https://www.npmjs.com/get-npm</li></ul>
+  </li>
 </ul>
 
 ### Installation
